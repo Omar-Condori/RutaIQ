@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>614717346303-o38deqo9o2c9vd261ub27r13hda9a99o.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.614717346303-o38deqo9o2c9vd261ub27r13hda9a99o</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>614717346303-68bcfe4mcjsdcqb21a9te42u6df9cchm.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD0I-PqCNtH9MW6UXgeowmzc12pBIaZ-P0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>614717346303</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.rutaiq</string>
+	<key>PROJECT_ID</key>
+	<string>rutaiq-9741d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>rutaiq-9741d.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:614717346303:ios:5ef7be3d0fee47d90357ca</string>
+</dict>
+</plist>

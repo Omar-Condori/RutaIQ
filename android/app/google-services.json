@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "614717346303",
+    "project_id": "rutaiq-9741d",
+    "storage_bucket": "rutaiq-9741d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:614717346303:android:678607f92d3141390357ca",
+        "android_client_info": {
+          "package_name": "com.rutaiq.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "614717346303-68bcfe4mcjsdcqb21a9te42u6df9cchm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rutaiq.app",
+            "certificate_hash": "4d72ccda11f02b94d6b88c12b1add6ba99412035"
+          }
+        },
+        {
+          "client_id": "614717346303-otradcsan5gcijnokangktor7hich7fe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDNNDDHxJM1kY8-0NBaA1F876jKXjojR0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "614717346303-otradcsan5gcijnokangktor7hich7fe.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "614717346303-esp38799t7dodct14h5gpj5lq8821b2j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.rutaiq.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
