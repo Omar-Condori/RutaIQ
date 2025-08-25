@@ -9,6 +9,7 @@ import '../ui/admin/pages/manage_drivers_page.dart';
 import '../ui/admin/pages/manage_vehicles_page.dart';
 import '../ui/admin/pages/manage_lines_page.dart';
 import '../ui/admin/pages/complaints_admin_page.dart';
+import '../ui/admin/pages/create_empresa_page.dart';
 import '../ui/driver/pages/driver_profile_page.dart';
 import '../ui/driver/pages/driver_complaints_page.dart';
 import '../ui/passenger/pages/complaint_form_page.dart';
@@ -36,19 +37,35 @@ final appRouter = GoRouter(
     // Rutas de Admin
     GoRoute(
       path: '/admin/drivers',
-      builder: (context, state) => const ManageDriversPage(),
+      builder: (context, state) {
+        final empresaId = state.uri.queryParameters['empresaId'];
+        return ManageDriversPage(empresaId: empresaId ?? '');
+      },
     ),
     GoRoute(
       path: '/admin/vehicles',
-      builder: (context, state) => const ManageVehiclesPage(),
+      builder: (context, state) {
+        final empresaId = state.uri.queryParameters['empresaId'];
+        return ManageVehiclesPage(empresaId: empresaId ?? '');
+      },
     ),
     GoRoute(
       path: '/admin/lines',
-      builder: (context, state) => const ManageLinesPage(),
+      builder: (context, state) {
+        final empresaId = state.uri.queryParameters['empresaId'];
+        return ManageLinesPage(empresaId: empresaId ?? '');
+      },
     ),
     GoRoute(
       path: '/admin/complaints',
-      builder: (context, state) => const ComplaintsAdminPage(),
+      builder: (context, state) {
+        final empresaId = state.uri.queryParameters['empresaId'];
+        return ComplaintsAdminPage(empresaId: empresaId ?? '');
+      },
+    ),
+    GoRoute(
+      path: '/admin/create-empresa',
+      builder: (context, state) => const CreateEmpresaPage(),
     ),
     // Rutas de Conductor
     GoRoute(

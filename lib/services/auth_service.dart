@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/user_model.dart';
 import '../core/errors/exceptions.dart';
+import '../core/constants/app_constants.dart';
 
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -22,7 +23,7 @@ class AuthService {
           id: user.uid,
           email: user.email ?? '',
           name: user.displayName ?? '',
-          role: 'passenger',
+          role: AppConstants.ROLE_PASSENGER,
           createdAt: DateTime.now(),
           updatedAt: DateTime.now(),
         );
@@ -77,7 +78,7 @@ class AuthService {
         id: result.user!.uid,
         email: email,
         name: name ?? '',
-        role: 'passenger',
+        role: AppConstants.ROLE_PASSENGER,
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       );
@@ -111,6 +112,19 @@ class AuthService {
     }
   }
 
+  // Obtener usuario por ID
+  Future<UserModel?> getUserById(String uid) async {
+    try {
+      final userDoc = await _firestore.collection('users').doc(uid).get();
+      if (userDoc.exists) {
+        return UserModel.fromFirestore(userDoc);
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
   // Obtener rol del usuario
   Future<String> getUserRole(String uid) async {
     try {
@@ -134,7 +148,7 @@ class AuthService {
             .limit(1)
             .get();
 
-        if (adminDoc.docs.isNotEmpty) return 'admin';
+        if (adminDoc.docs.isNotEmpty) return AppConstants.ROLE_ADMIN;
       } catch (e) {
         // Si no tiene permisos para admins, continuar
       }
@@ -147,16 +161,28 @@ class AuthService {
             .limit(1)
             .get();
 
-        if (driverDoc.docs.isNotEmpty) return 'driver';
+        if (driverDoc.docs.isNotEmpty) return AppConstants.ROLE_DRIVER;
       } catch (e) {
         // Si no tiene permisos para drivers, continuar
       }
 
       // Por defecto es pasajero
-      return 'passenger';
+      return AppConstants.ROLE_PASSENGER;
     } catch (e) {
       // Si hay error, retornar pasajero por defecto en lugar de lanzar excepción
-      return 'passenger';
+      return AppConstants.ROLE_PASSENGER;
+    }
+  }
+
+  // Asociar empresa al usuario
+  Future<void> associateUserWithEmpresa(String userId, String empresaId) async {
+    try {
+      await _firestore.collection('users').doc(userId).update({
+        'empresaId': empresaId,
+        'updatedAt': Timestamp.fromDate(DateTime.now()),
+      });
+    } catch (e) {
+      throw FirestoreException('Error asociando usuario con empresa: ${e.toString()}');
     }
   }
 

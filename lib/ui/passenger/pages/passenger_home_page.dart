@@ -1,6 +1,8 @@
 // lib/ui/passenger/pages/passenger_home_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import '../../../providers/auth_provider.dart';
 import '../../../providers/position_provider.dart';
 import '../widgets/line_card_widget.dart';
 import '../../shared/widgets/map_widget.dart';
@@ -104,23 +106,27 @@ class _ComplaintsTab extends StatelessWidget {
         child: Text('Lista de quejas del usuario'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Navegar a formulario de quejas
-        },
+        onPressed: () => context.push('/passenger/complaint'),
         child: const Icon(Icons.add),
       ),
     );
   }
 }
 
-class _ProfileTab extends StatelessWidget {
+class _ProfileTab extends ConsumerWidget {
   const _ProfileTab();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Mi Perfil'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () => ref.read(authNotifierProvider.notifier).signOut(),
+          ),
+        ],
       ),
       body: const Center(
         child: Text('Perfil del usuario'),

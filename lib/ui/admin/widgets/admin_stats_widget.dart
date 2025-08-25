@@ -1,11 +1,22 @@
 // lib/ui/admin/widgets/admin_stats_widget.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../providers/vehicle_provider.dart';
+import '../../../providers/line_provider.dart';
+import '../../../providers/driver_provider.dart';
+import '../../../providers/auth_provider.dart';
 
-class AdminStatsWidget extends StatelessWidget {
-  const AdminStatsWidget({Key? key}) : super(key: key);
+class AdminStatsWidget extends ConsumerWidget {
+  final String empresaId;
+  
+  const AdminStatsWidget({Key? key, required this.empresaId}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final vehiclesAsync = ref.watch(vehiclesByEmpresaProvider(empresaId));
+    final linesAsync = ref.watch(linesByEmpresaProvider(empresaId));
+    final driversAsync = ref.watch(driversByEmpresaProvider(empresaId));
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -13,7 +24,7 @@ class AdminStatsWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Estadísticas',
+              'Estadísticas de la Empresa',
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -25,19 +36,31 @@ class AdminStatsWidget extends StatelessWidget {
                 _StatItem(
                   icon: Icons.person,
                   label: 'Conductores',
-                  value: '12',
+                  value: driversAsync.when(
+                    data: (drivers) => drivers.length.toString(),
+                    loading: () => '...',
+                    error: (_, __) => '0',
+                  ),
                   color: Colors.blue,
                 ),
                 _StatItem(
                   icon: Icons.directions_car,
                   label: 'Vehículos',
-                  value: '8',
+                  value: vehiclesAsync.when(
+                    data: (vehicles) => vehicles.length.toString(),
+                    loading: () => '...',
+                    error: (_, __) => '0',
+                  ),
                   color: Colors.green,
                 ),
                 _StatItem(
                   icon: Icons.route,
                   label: 'Líneas',
-                  value: '5',
+                  value: linesAsync.when(
+                    data: (lines) => lines.length.toString(),
+                    loading: () => '...',
+                    error: (_, __) => '0',
+                  ),
                   color: Colors.orange,
                 ),
               ],

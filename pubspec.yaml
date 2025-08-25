@@ -38,7 +38,27 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.1
+  flutter_lints: ^3.0.2
+  flutter_launcher_icons: ^0.14.4
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/rutaiq_icons/rutaiq_icon_512x512.png"
+  remove_alpha_ios: true
+  min_sdk_android: 21
+  web:
+    generate: true
+    image_path: "assets/icons/rutaiq_icons/rutaiq_icon_512x512.png"
+    background_color: "#ffffff"
+    theme_color: "#2196F3"
+  windows:
+    generate: true
+    image_path: "assets/icons/rutaiq_icons/rutaiq_icon_512x512.png"
+    icon_size: 48
+  macos:
+    generate: true
+    image_path: "assets/icons/rutaiq_icons/rutaiq_icon_512x512.png"
 
 flutter:
   uses-material-design: true

@@ -4,47 +4,75 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Función helper para verificar si el usuario es admin
+    function isAdmin() {
+      return request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    function isDriver() {
+      return request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'driver';
+    }
+    
+    function isPassenger() {
+      return request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'passenger';
+    }
+    
     // Usuarios pueden leer/escribir solo sus propios datos
     match /users/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
     
-    // Admins pueden leer/escribir en admins
-    match /admins/{adminId} {
-      allow read, write: if request.auth != null && request.auth.uid == adminId;
+    // Empresas: admins pueden leer/escribir
+    match /empresas/{empresaId} {
+      allow read, write: if isAdmin();
     }
     
-    // Conductores pueden leer/escribir en drivers
+    // Conductores: admins pueden gestionar, conductores pueden leer sus propios datos
     match /drivers/{driverId} {
-      allow read, write: if request.auth != null && request.auth.uid == driverId;
+      allow read: if request.auth != null && 
+        (isAdmin() || 
+         resource.data.uid == request.auth.uid ||
+         resource.data.empresaId == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.empresaId);
+      allow write: if isAdmin();
     }
     
-    // Quejas: usuarios autenticados pueden crear, admins pueden leer todas
+    // Vehículos: admins pueden gestionar, todos pueden leer
+    match /vehicles/{vehicleId} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
+    }
+    
+    // Líneas: admins pueden gestionar, todos pueden leer
+    match /lines/{lineId} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
+    }
+    
+    // Quejas: usuarios pueden crear, admins pueden leer todas
     match /complaints/{complaintId} {
       allow create: if request.auth != null;
       allow read, write: if request.auth != null && 
-        (resource.data.userId == request.auth.uid || 
-         exists(/databases/$(database)/documents/admins/$(request.auth.uid)));
+        (resource.data.userId == request.auth.uid || isAdmin());
     }
     
-    // Empresas: solo admins pueden gestionar
-    match /empresas/{empresaId} {
-      allow read, write: if request.auth != null && 
-        exists(/databases/$(database)/documents/admins/$(request.auth.uid));
-    }
-    
-    // Líneas: usuarios autenticados pueden leer, admins pueden gestionar
-    match /lines/{lineId} {
+    // Posiciones: todos pueden leer, conductores pueden escribir
+    match /positions/{positionId} {
       allow read: if request.auth != null;
-      allow write: if request.auth != null && 
-        exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+      allow write: if isDriver();
     }
     
-    // Vehículos: usuarios autenticados pueden leer, admins pueden gestionar
-    match /vehicles/{vehicleId} {
+    // Rutas: todos pueden leer
+    match /routes/{routeId} {
       allow read: if request.auth != null;
-      allow write: if request.auth != null && 
-        exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+    
+    // Paradas: todos pueden leer
+    match /stops/{stopId} {
+      allow read: if request.auth != null;
     }
   }
 }
+

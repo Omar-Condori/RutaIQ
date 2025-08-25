@@ -133,6 +133,22 @@ class FirestoreService {
     }
   }
 
+  Future<void> updateLine(LineModel line) async {
+    try {
+      await _firestore.collection('lines').doc(line.id).update(line.toJson());
+    } catch (e) {
+      throw FirestoreException('Error actualizando línea: ${e.toString()}');
+    }
+  }
+
+  Future<void> deleteLine(String lineId) async {
+    try {
+      await _firestore.collection('lines').doc(lineId).delete();
+    } catch (e) {
+      throw FirestoreException('Error eliminando línea: ${e.toString()}');
+    }
+  }
+
   // CRUD Quejas
   Future<List<ComplaintModel>> getComplaintsByEmpresa(String empresaId) async {
     try {

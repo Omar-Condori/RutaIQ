@@ -14,6 +14,11 @@ final userRoleProvider = FutureProvider.family<String, String>((ref, uid) {
   return ref.watch(authServiceProvider).getUserRole(uid);
 });
 
+final currentUserEmpresaProvider = FutureProvider.family<String?, String>((ref, uid) async {
+  final user = await ref.watch(authServiceProvider).getUserById(uid);
+  return user?.empresaId;
+});
+
 final authProvider = StreamProvider<UserModel?>((ref) {
   return ref.watch(authServiceProvider).authStateChanges;
 });

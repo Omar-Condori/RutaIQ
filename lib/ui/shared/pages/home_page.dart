@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../providers/auth_provider.dart';
+import '../../../core/constants/app_constants.dart';
 import '../../admin/pages/admin_home_page.dart';
 import '../../driver/pages/driver_home_page.dart';
 import '../../passenger/pages/passenger_home_page.dart';
@@ -27,11 +28,11 @@ class HomePage extends ConsumerWidget {
         return userRoleAsync.when(
           data: (role) {
             switch (role) {
-              case 'admin':
+              case AppConstants.ROLE_ADMIN:
                 return const AdminHomePage();
-              case 'driver':
+              case AppConstants.ROLE_DRIVER:
                 return const DriverHomePage();
-              case 'passenger':
+              case AppConstants.ROLE_PASSENGER:
               default:
                 return const PassengerHomePage();
             }

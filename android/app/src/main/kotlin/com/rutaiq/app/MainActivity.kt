@@ -1,4 +1,4 @@
-package com.example.rutaiq
+package com.rutaiq.app
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -6,6 +6,9 @@ class EmpresaModel {
   final String nombre;
   final String ruc;
   final String contacto;
+  final String? adminId;
+  final DateTime createdAt;
+  final DateTime updatedAt;
   final Map<String, dynamic>? configuracion;
 
   EmpresaModel({
@@ -13,6 +16,9 @@ class EmpresaModel {
     required this.nombre,
     required this.ruc,
     required this.contacto,
+    this.adminId,
+    required this.createdAt,
+    required this.updatedAt,
     this.configuracion,
   });
 
@@ -22,6 +28,9 @@ class EmpresaModel {
       nombre: json['nombre'] ?? '',
       ruc: json['ruc'] ?? '',
       contacto: json['contacto'] ?? '',
+      adminId: json['adminId'],
+      createdAt: (json['createdAt'] as Timestamp).toDate(),
+      updatedAt: (json['updatedAt'] as Timestamp).toDate(),
       configuracion: json['configuracion'],
     );
   }
@@ -36,21 +45,31 @@ class EmpresaModel {
       'nombre': nombre,
       'ruc': ruc,
       'contacto': contacto,
+      'adminId': adminId,
+      'createdAt': Timestamp.fromDate(createdAt),
+      'updatedAt': Timestamp.fromDate(updatedAt),
       'configuracion': configuracion ?? {},
     };
   }
 
   EmpresaModel copyWith({
+    String? id,
     String? nombre,
     String? ruc,
     String? contacto,
+    String? adminId,
+    DateTime? createdAt,
+    DateTime? updatedAt,
     Map<String, dynamic>? configuracion,
   }) {
     return EmpresaModel(
-      id: id,
+      id: id ?? this.id,
       nombre: nombre ?? this.nombre,
       ruc: ruc ?? this.ruc,
       contacto: contacto ?? this.contacto,
+      adminId: adminId ?? this.adminId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
       configuracion: configuracion ?? this.configuracion,
     );
   }

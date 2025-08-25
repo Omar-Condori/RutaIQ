@@ -1,26 +1,22 @@
 // lib/core/constants/app_constants.dart
+
 class AppConstants {
-  // Firebase Collections
-  static const String empresasCollection = 'empresas';
-  static const String driversCollection = 'drivers';
-  static const String vehiclesCollection = 'vehicles';
-  static const String linesCollection = 'lines';
-  static const String complaintsCollection = 'complaints';
-  static const String positionsCollection = 'positions';
-  static const String stopsCollection = 'stops';
-  static const String routesCollection = 'routes';
-  static const String adminsCollection = 'admins';
+  // Roles de usuario
+  static const String ROLE_PASSENGER = 'passenger';
+  static const String ROLE_DRIVER = 'driver';
+  static const String ROLE_ADMIN = 'admin';
 
-  // Storage Paths
-  static const String complaintsStoragePath = 'complaints';
-  static const String profilesStoragePath = 'profiles';
+  // Rutas de navegación según rol
+  static const String ROUTE_PASSENGER_HOME = '/passenger/home';
+  static const String ROUTE_DRIVER_HOME = '/driver/home';
+  static const String ROUTE_ADMIN_HOME = '/admin/home';
 
-  // Roles
-  static const String adminRole = 'admin';
-  static const String driverRole = 'driver';
-  static const String passengerRole = 'passenger';
+  // Títulos de páginas
+  static const String TITLE_PASSENGER = 'Pasajero';
+  static const String TITLE_DRIVER = 'Conductor';
+  static const String TITLE_ADMIN = 'Administrador';
 
-  // App Info
-  static const String appName = 'RutaIQ';
-  static const String appVersion = '1.0.0';
+  // Otros
+  static const String APP_NAME = 'RutaIQ';
+  static const String APP_DESCRIPTION = 'Sistema de Transporte Público';
 }

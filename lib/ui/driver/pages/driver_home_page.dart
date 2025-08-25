@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../providers/auth_provider.dart';
 
 class DriverHomePage extends ConsumerWidget {
   const DriverHomePage({Key? key}) : super(key: key);
@@ -14,9 +15,7 @@ class DriverHomePage extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
-            onPressed: () {
-              // TODO: Implementar logout
-            },
+            onPressed: () => ref.read(authNotifierProvider.notifier).signOut(),
           ),
         ],
       ),
